@@ -1,0 +1,113 @@
+{
+  "starters": [
+    {
+      "name": "Truffle Arancini",
+      "description": "Crispy risotto balls infused with truffle.",
+      "price": "₹450",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+
+    {
+      "name": "Spring Rolls",
+      "price": "₹250",
+      "imageUrl":
+        "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Garlic Bread",
+      "price": "₹200",
+      "imageUrl":
+        "https://images.pexels.com/photos/28743097/pexels-photo-28743097/free-photo-of-delicious-seafood-pasta-fusilli-with-basil-garnish.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Caviar Blini",
+      "description": "Russian blini topped with premium caviar.",
+      "price": "₹1200",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Foie Gras Toast",
+      "description": "French foie gras on buttered brioche.",
+      "price": "₹850",
+      "image": "https://images.pexels.com/photos/28743097/pexels-photo-28743097/free-photo-of-delicious-seafood-pasta-fusilli-with-basil-garnish.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    }
+  ],
+  "soupsSalads": [
+    {
+      "name": "French Onion Soup",
+      "description": "Caramelized onions in beef broth, topped with melted cheese.",
+      "price": "₹700",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Caesar Salad",
+      "description": "Classic salad with romaine, parmesan, and house dressing.",
+      "price": "₹600",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Tomato Basil Soup",
+      "description": "Smooth tomato soup with fresh basil and cream.",
+      "price": "₹500",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Greek Salad",
+      "description": "Fresh cucumbers, tomatoes, olives, and feta cheese.",
+      "price": "₹550",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    }
+  ],
+  "mainCourse": [
+    {
+      "name": "Wagyu Steak",
+      "description": "A5 grade Wagyu beef cooked to perfection.",
+      "price": "₹5000",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Black Truffle Pasta",
+      "description": "Homemade pasta with black truffle shavings.",
+      "price": "₹2200",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Grilled Salmon",
+      "description": "Fresh salmon fillet grilled with herbs and served with vegetables.",
+      "price": "₹1800",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Lobster Thermidor",
+      "description": "Lobster in a creamy wine sauce, topped with melted cheese.",
+      "price": "₹3500",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    }
+  ],
+  "desserts": [
+    {
+      "name": "Gold Leaf Chocolate Mousse",
+      "description": "Rich chocolate mousse topped with edible gold.",
+      "price": "₹1200",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Crème Brûlée",
+      "description": "Classic French vanilla custard with caramelized sugar.",
+      "price": "₹950",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Pistachio Baklava",
+      "description": "Layered pastry with chopped pistachios and syrup.",
+      "price": "₹850",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    {
+      "name": "Tiramisu",
+      "description": "Classic Italian dessert with layers of coffee-soaked biscuits.",
+      "price": "₹950",
+      "image": "https://images.pexels.com/photos/30506291/pexels-photo-30506291/free-photo-of-delicious-asian-noodle-dish-with-chopsticks.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    }
+  ]
+}
