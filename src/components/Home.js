@@ -15,20 +15,12 @@ import Test from "./Test";
 import EditableMenu from "./EditableMenu/EditableMenu";
 
 const Home = () => {
-  useEffect(() => {
-    fetch("https://hotel-menu-backend.vercel.app/api/v1/hotel1/get-menu-items")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched Menu Items:", data); // Prints data in console
-      })
-      .catch((error) => {
-        console.error("Error fetching menu items:", error);
-      });
-  }, []);
+
   return (
     <div className="mx-auto sm:flex gap-2 flex-wrap justify-center bg-red-400 h-full">
-      {/* <Test /> */}
-      {/* <Menu />
+    <EditableMenu/>
+      {/* <Test /> 
+      <Menu />
       <Menu1 />
       <Menu2 />
       <Menu3 />
