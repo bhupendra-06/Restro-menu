@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import PostForm from "./components/PostForm";
+import PostForm from "./components/EditableMenu/PostForm";
 import BusinessWebsite from "./components/contactCard/BusinessWebsite";
 
 function App() {

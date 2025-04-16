@@ -184,12 +184,12 @@ const EditableMenu = () => {
               🍽️ Discover Our Flavours
             </h1>
 
-            <div className="sticky top-0 bg-gray-800 shadow-md py-3 px-4 flex gap-3 overflow-x-auto whitespace-nowrap">
+            <div className="sticky top-0 bg-gray-800 shadow-md py-3 px-4 flex gap-3 overflow-x-auto whitespace-nowrap z-20">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-5 py-2 text-sm font-semibold rounded-full transition-all duration-200 border ${
+                  className={`px-5 py-2 text-sm font-semibold rounded-full capitalize transition-all duration-200 border ${
                     activeCategory === category
                       ? "bg-yellow-500 text-black border-yellow-500"
                       : "bg-gray-700 text-white border-gray-600 hover:bg-yellow-600 hover:text-black"
@@ -238,7 +238,7 @@ const EditableMenu = () => {
       {/* Today’s Special Modal */}
       {modalData.item && modalData.isSpecial && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-20 p-4"
+          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-10 p-4"
           onClick={closeModal}
         >
           <div className="bg-gradient-to-br from-yellow-50 to-yellow-200 text-black rounded-2xl p-6 max-w-sm w-full relative shadow-2xl border border-yellow-400">
