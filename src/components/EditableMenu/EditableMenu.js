@@ -201,7 +201,7 @@ const EditableMenu = () => {
               ))}
             </div>
 
-            <div className="p-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {filteredItems.map((item) => (
                 <div
                   key={item._id}

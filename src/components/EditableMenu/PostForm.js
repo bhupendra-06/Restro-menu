@@ -32,7 +32,7 @@ const PostForm = () => {
 
     const data = new FormData();
     data.append("file", imageFile);
-    data.append("upload_preset", "restro-menu"); // 🔁 Replace this
+    data.append("upload_preset", "restro-menu");
     
 
     setUploading(true);
