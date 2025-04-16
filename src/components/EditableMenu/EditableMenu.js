@@ -104,9 +104,10 @@ const EditableMenu = () => {
   const [modalData, setModalData] = useState({ item: null, isSpecial: false });
   const [showTodaySpecial, setShowTodaySpecial] = useState(true);
   const [showMenu, setShowMenu] = useState(false); // For handling intro and menu transition
+    
 
   useEffect(() => {
-    fetch("https://hotel-menu-backend.vercel.app/api/v1/hotel1/get-menu-items")
+    fetch(`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/get-menu-items`)
       .then((response) => response.json())
       .then((data) => {
         setMenuItems(data);

@@ -33,12 +33,12 @@ const PostForm = () => {
     const data = new FormData();
     data.append("file", imageFile);
     data.append("upload_preset", "restro-menu"); // 🔁 Replace this
-    const cloudName = "ddti7juma"; // 🔁 Replace this
+    
 
     setUploading(true);
     try {
       const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
           method: "POST",
           body: data,
@@ -74,7 +74,7 @@ const PostForm = () => {
 
       // Send to backend
       const response = await fetch(
-        "https://hotel-menu-backend.vercel.app/api/v1/hotel1/add-menu-item",
+        `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/add-menu-item`,
         {
           method: "POST",
           headers: {

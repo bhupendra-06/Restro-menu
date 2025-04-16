@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <div className="mx-auto sm:flex gap-2 flex-wrap justify-center bg-red-400 h-full">
-      <Test />
+      {/* <Test />
       <Menu />
       <Menu1 />
       <Menu2 />
@@ -30,7 +30,8 @@ const Home = () => {
       <RestaurantMenu2 />
       <RestaurantMenu1 />
       <RestaurantMenu />
-      <RestaurantMenu4 />
+      <RestaurantMenu4 /> */}
+      <EditableMenu />
     </div>
   );
 };
