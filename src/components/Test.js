@@ -63,8 +63,8 @@ const App = () => {
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.2 } }}
                 >
-                  <img src={item.image} alt={item.name} className="w-28 h-28 object-cover rounded-lg" />
-                  <div className="m-5">
+                  <img src={item.image} alt={item.name} className="m-2 w-28 h-28 object-cover rounded-lg" />
+                  <div className="m-5 text-start">
                     <h2 className="text-xl font-semibold text-[#FFB400]">{item.name}</h2>
                     <p className="text-gray-300 text-lg">{item.price}</p>
                   </div>
