@@ -1,7 +1,5 @@
 // import { useEffect, useState } from "react";
-
-// const fallbackImage =
-//   "https://i0.wp.com/blog.themalamarket.com/wp-content/uploads/2024/06/Vegetarian-pulled-noodles-lead-more-sat.jpg?resize=1200%2C900&ssl=1";
+// import fallbackImage from "../../assets/food-fallback.png"
 
 // const EditableMenu = () => {
 //   const [menuItems, setMenuItems] = useState([]);
@@ -94,9 +92,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const fallbackImage =
-  "https://i0.wp.com/blog.themalamarket.com/wp-content/uploads/2024/06/Vegetarian-pulled-noodles-lead-more-sat.jpg?resize=1200%2C900&ssl=1";
+import fallbackImage from "../../assets/food-fallback.png"
 
 const EditableMenu = () => {
   const [menuItems, setMenuItems] = useState([]);

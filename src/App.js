@@ -2,6 +2,8 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import PostForm from "./components/EditableMenu/PostForm";
+import Admin from "./components/EditableMenu/Admin";
+
 import BusinessWebsite from "./components/contactCard/BusinessWebsite";
 
 function App() {
@@ -11,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/post" element={<PostForm />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/b" element={<BusinessWebsite />} />
         </Routes>
       </div>
