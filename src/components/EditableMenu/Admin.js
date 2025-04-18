@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PencilIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import fallbackImage from "../../assets/food-fallback.png";
 
 const Admin = () => {
@@ -8,15 +8,13 @@ const Admin = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
 
+  // Fetch menu items
   useEffect(() => {
-    fetch(
-      `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/get-menu-items`
-    )
+    fetch(`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/get-menu-items`, {
+      credentials: "include", // ✅ send cookies automatically
+    })
       .then((response) => response.json())
-      .then((data) => {
-        setMenuItems(data);
-        console.log(data);
-      })
+      .then((data) => setMenuItems(data))
       .catch((error) => {
         console.error("Error fetching menu items:", error);
       });
@@ -32,56 +30,48 @@ const Admin = () => {
       ? menuItems
       : menuItems.filter((item) => item.category === activeCategory);
 
-      const updateItem = async (item) => {
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmU2OTk3MGMxZTM4ODhiYTk4MzdlMSIsImlhdCI6MTc0NDg4NDQyMSwiZXhwIjoxNzQ1NDg5MjIxfQ.UBsNf0xDo81kQsBr5JdGCC-WprLJgi0s-DWOX0IrVbo";
-      
-        const { _id, createdAt, updatedAt, __v, ...itemData } = item;
-      
-        try {
-          const res = await fetch(
-            `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/update-menu-item/${_id}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify(itemData),
-            }
-          );
-      
-          const data = await res.json();
-          console.log("Updated item from server:", data);
-      
-          if (res.ok) {
-            setMenuItems((prevItems) =>
-              prevItems.map((itm) =>
-                itm._id === _id ? { ...itm, ...itemData } : itm
-              )
-            );
-            setIsEditModalOpen(false);
-            setCurrentItem(null);
-          } else {
-            console.error("Update failed: ", data?.message || "Unknown error");
-          }
-        } catch (err) {
-          console.error("Update failed:", err);
+  const updateItem = async (item) => {
+    const { _id, createdAt, updatedAt, __v, ...itemData } = item;
+
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/update-menu-item/${_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // ✅ cookie-based auth
+          body: JSON.stringify(itemData),
         }
-      };
-      
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setMenuItems((prev) =>
+          prev.map((itm) => (itm._id === _id ? { ...itm, ...itemData } : itm))
+        );
+        setIsEditModalOpen(false);
+        setCurrentItem(null);
+      } else {
+        console.error("Update failed:", data?.message || "Unknown error");
+      }
+    } catch (err) {
+      console.error("Update failed:", err);
+    }
+  };
 
   return (
     <div className="relative z-0 min-h-screen bg-gray-50">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-red-400 to-pink-500 opacity-20 animate-pulse"></div>
 
-      {/* Page title */}
       <h1 className="text-4xl font-extrabold text-center py-8 tracking-wide text-yellow-600">
         Your Menu
       </h1>
 
-      {/* Category filter bar */}
+      {/* Category Filter */}
       <div className="sticky top-0 bg-white shadow-md py-3 px-4 flex gap-3 overflow-x-auto whitespace-nowrap z-20">
         {categories.map((category) => (
           <button
@@ -98,13 +88,12 @@ const Admin = () => {
         ))}
       </div>
 
-      {/* Menu Items Section */}
+      {/* Menu Grid */}
       <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {/* Menu Cards */}
         {filteredItems.map((item) => (
           <div
             key={item._id}
-            className="cursor-pointer rounded-xl overflow-hidden shadow-md bg-white text-gray-800 flex items-center transform hover:scale-105 transition-transform duration-300 border border-gray-200"
+            className="relative cursor-pointer rounded-xl overflow-hidden shadow-md bg-white text-gray-800 flex items-center transform hover:scale-105 transition-transform duration-300 border border-gray-200"
           >
             <button
               onClick={() => {
@@ -125,6 +114,7 @@ const Admin = () => {
               }}
               className="w-28 h-28 object-cover m-3 rounded-lg border border-gray-200"
             />
+
             <div className="p-3 flex-1">
               <h3 className="text-lg font-semibold text-yellow-600">
                 {item.name}
@@ -143,7 +133,8 @@ const Admin = () => {
           </div>
         ))}
       </div>
-      {/* UPDATE MENU MODAL */}
+
+      {/* Edit Modal */}
       {isEditModalOpen && currentItem && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-30 flex items-center justify-center">
           <div className="bg-white p-6 rounded-xl w-full max-w-md shadow-lg">
