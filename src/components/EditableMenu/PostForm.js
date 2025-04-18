@@ -38,7 +38,7 @@ const PostForm = () => {
     setUploading(true);
     try {
       const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
           method: "POST",
           body: data,
@@ -68,7 +68,7 @@ const PostForm = () => {
         name: formData.name,
         description: formData.description,
         price: Number(formData.price),
-        category: formData.category,
+        category: formData.category.toLowerCase(),
         imageUrl: uploadedUrl,
       };
 
@@ -80,6 +80,7 @@ const PostForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include", // ✅ include cookie automatically
           body: JSON.stringify(payload),
         }
       );
