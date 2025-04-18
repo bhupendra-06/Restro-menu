@@ -17,7 +17,7 @@ import EditableMenu from "./EditableMenu/EditableMenu";
 const Home = () => {
 
   return (
-    <div className="mx-auto sm:flex gap-2 flex-wrap justify-center bg-red-400 h-full">
+    <div className="mx-auto sm:flex gap-2 bg-gray-800 flex-wrap justify-center h-full">
       {/* <Test />
       <Menu />
       <Menu1 />
@@ -31,7 +31,7 @@ const Home = () => {
       <RestaurantMenu1 />
       <RestaurantMenu />
       <RestaurantMenu4 /> */}
-      <EditableMenu />
+      <EditableMenu/>
     </div>
   );
 };

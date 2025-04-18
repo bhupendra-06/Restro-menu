@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { useAuth } from "./context/AuthContext";
 import Home from "./components/Home";
 import PostForm from "./components/EditableMenu/PostForm";
+import Admin from "./components/EditableMenu/Admin";
 import BusinessWebsite from "./components/contactCard/BusinessWebsite";
 import AdminLogin from "./components/Admin/AdminLogin";
 
