@@ -26,6 +26,10 @@ function App() {
                 path="/b"
                 element={admin ? <BusinessWebsite /> : <Navigate to="/admin-login" />}
             />
+            <Route
+                path="/admin"
+                element={admin ? <Admin /> : <Navigate to="/admin-login" />}
+            />
             </Routes>
         </div>
         </Router>
