@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import fallbackImage from "../../assets/food-fallback.png";
+import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("starter");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch menu items
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/get-menu-items`, {
-      credentials: "include", // ✅ send cookies automatically
-    })
+  const fetchMenuItems = () => {
+    fetch(
+      `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/get-menu-items`,
+      {
+        credentials: "include", // ✅ send cookies automatically
+      }
+    )
       .then((response) => response.json())
       .then((data) => setMenuItems(data))
       .catch((error) => {
         console.error("Error fetching menu items:", error);
       });
+  };
+  useEffect(() => {
+    fetchMenuItems();
   }, []);
 
   const categories = [
@@ -62,14 +70,49 @@ const Admin = () => {
     }
   };
 
+  const handleDelete = async (itemId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+
+    if (confirmed) {
+      try {
+        const response = await fetch(
+          `https://hotel-menu-backend.vercel.app/api/v1/hotel1/delete-menu-item/${itemId}`,
+          {
+            method: "DELETE",
+            credentials: "include",
+          }
+        );
+
+        if (response.ok) {
+          alert("Item deleted successfully.");
+          // Optionally, refresh list or update state here
+          fetchMenuItems();
+        } else {
+          alert("Failed to delete item.");
+        }
+      } catch (error) {
+        console.error("Error deleting item:", error);
+        alert("Something went wrong. Please try again.");
+      }
+    }
+  };
+
   return (
     <div className="relative z-0 min-h-screen bg-gray-50">
       {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-red-400 to-pink-500 opacity-20 animate-pulse"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-red-400 to-pink-500 opacity-20 -z-10 animate-pulse"></div>
 
       <h1 className="text-4xl font-extrabold text-center py-8 tracking-wide text-yellow-600">
         Your Menu
       </h1>
+      <div
+         onClick={() => navigate("/post")}
+        className="mx-auto pb-2 w-full max-w-24 bg-gray-500/75 text-center text-5xl text-white shadow-lg rounded-full bottom-1 right-5 cursor-pointer z-20"
+      >
+        +
+      </div>
 
       {/* Category Filter */}
       <div className="sticky top-0 bg-white shadow-md py-3 px-4 flex gap-3 overflow-x-auto whitespace-nowrap z-20">
@@ -103,6 +146,14 @@ const Admin = () => {
               className="p-2 bg-gray-500 text-white shadow-lg rounded-full absolute top-1 right-1"
             >
               <PencilSquareIcon className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => {
+                handleDelete(item._id);
+              }}
+              className="p-2 bg-red-500 text-white shadow-lg rounded-full absolute bottom-1 right-1"
+            >
+              <TrashIcon className="h-5 w-5" />
             </button>
 
             <img
