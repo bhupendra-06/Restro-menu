@@ -161,7 +161,7 @@ const PostForm = () => {
             <option value="starter">Starter</option>
             <option value="main course">Main Course</option>
             <option value="dessert">Dessert</option>
-            <option value="beverage">Beverage</option>
+            <option value="beverages">Beverages</option>
           </select>
           <button
             type="submit"
