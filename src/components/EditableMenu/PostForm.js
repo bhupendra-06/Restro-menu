@@ -29,12 +29,10 @@ const PostForm = () => {
       alert("Please select an image.");
       return;
     }
-
     const data = new FormData();
     data.append("file", imageFile);
     data.append("upload_preset", "restro-menu");
     
-
     setUploading(true);
     try {
       const res = await fetch(

@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  PencilSquareIcon,
+  TrashIcon,
+  PlusIcon,
+} from "@heroicons/react/24/outline";
 import fallbackImage from "../../assets/food-fallback.png";
 import { useNavigate } from "react-router-dom";
+import { ReactComponent as LogoutIcon } from "../../assets/logout.svg";
+// import { ReactComponent as Plus } from "../../assets/plus.svg";
 
 const Admin = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("starter");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // const cloudinary = require('cloudinary').v2;
+  // cloudinary.config({
+  //   cloud_name: `${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}`,
+  //   api_key: `${process.env.CLOUDINARY_API_KEY}`,
+  //   api_secret: `${process.env.CLOUDINARY_API_SECRET}`,
+  // })
 
   // Fetch menu items
   const fetchMenuItems = () => {
@@ -38,10 +53,51 @@ const Admin = () => {
       ? menuItems
       : menuItems.filter((item) => item.category === activeCategory);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+    if (file.size > maxSize) {
+      alert("Image size should be less than 10MB");
+      return;
+    }
+
+    setImageFile(file);
+  };
+  const uploadImageToCloudinary = async () => {
+    if (imageFile) {
+      const data = new FormData();
+      data.append("file", imageFile);
+      data.append("upload_preset", "restro-menu");
+      try {
+        setLoading(true);
+        const res = await fetch(
+          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+        const result = await res.json();
+        return result.secure_url;
+      } catch (err) {
+        console.error("Image upload failed", err);
+        return null;
+      } finally{
+        setLoading(false);
+      }
+    }
+  };
+
   const updateItem = async (item) => {
     const { _id, createdAt, updatedAt, __v, ...itemData } = item;
+    
+    const uploadedUrl = await uploadImageToCloudinary();
+    if(uploadedUrl){
+      itemData.imageUrl = uploadedUrl;
+    }
 
     try {
+      setLoading(true);
       const res = await fetch(
         `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/update-menu-item/${_id}`,
         {
@@ -67,6 +123,9 @@ const Admin = () => {
       }
     } catch (err) {
       console.error("Update failed:", err);
+    } finally {
+      setLoading(false);
+      fetchMenuItems();
     }
   };
 
@@ -78,7 +137,7 @@ const Admin = () => {
     if (confirmed) {
       try {
         const response = await fetch(
-          `https://hotel-menu-backend.vercel.app/api/v1/hotel1/delete-menu-item/${itemId}`,
+          `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/delete-menu-item/${itemId}`,
           {
             method: "DELETE",
             credentials: "include",
@@ -104,15 +163,17 @@ const Admin = () => {
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-red-400 to-pink-500 opacity-20 -z-10 animate-pulse"></div>
 
-      <h1 className="text-4xl font-extrabold text-center py-8 tracking-wide text-yellow-600">
-        Your Menu
-      </h1>
-      <div
-         onClick={() => navigate("/post")}
-        className="mx-auto pb-2 w-full max-w-24 bg-gray-500/75 text-center text-5xl text-white shadow-lg rounded-full bottom-1 right-5 cursor-pointer z-20"
-      >
-        +
-      </div>
+      <nav className="p-4 flex justify-between items-center">
+        <PlusIcon
+          onClick={() => navigate("/post")}
+          className="w-8 h-8 bg-gray-500/75 text-center text-5xl text-white shadow-lg rounded-full cursor-pointer z-20"
+        />
+        <h2 className="text-2xl font-extrabold text-center tracking-wide text-yellow-600 z-20">
+          Your Menu
+        </h2>
+
+        <LogoutIcon className="w-8 h-8" />
+      </nav>
 
       {/* Category Filter */}
       <div className="sticky top-0 bg-white shadow-md py-3 px-4 flex gap-3 overflow-x-auto whitespace-nowrap z-20">
@@ -138,23 +199,25 @@ const Admin = () => {
             key={item._id}
             className="relative cursor-pointer rounded-xl overflow-hidden shadow-md bg-white text-gray-800 flex items-center transform hover:scale-105 transition-transform duration-300 border border-gray-200"
           >
-            <button
-              onClick={() => {
-                setCurrentItem(item);
-                setIsEditModalOpen(true);
-              }}
-              className="p-2 bg-gray-500 text-white shadow-lg rounded-full absolute top-1 right-1"
-            >
-              <PencilSquareIcon className="h-5 w-5" />
-            </button>
-            <button
-              onClick={() => {
-                handleDelete(item._id);
-              }}
-              className="p-2 bg-red-500 text-white shadow-lg rounded-full absolute bottom-1 right-1"
-            >
-              <TrashIcon className="h-5 w-5" />
-            </button>
+            <div className="space-x-1 absolute top-1 right-1">
+              <button
+                onClick={() => {
+                  setCurrentItem(item);
+                  setIsEditModalOpen(true);
+                }}
+                className="p-2 bg-gray-500 hover:bg-gray-600 text-white shadow-lg rounded-full"
+              >
+                <PencilSquareIcon className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => {
+                  handleDelete(item._id);
+                }}
+                className="p-2 bg-red-500 hover:bg-red-600 text-white shadow-lg rounded-full"
+              >
+                <TrashIcon className="h-5 w-5" />
+              </button>
+            </div>
 
             <img
               src={item.imageUrl || fallbackImage}
@@ -187,7 +250,15 @@ const Admin = () => {
 
       {/* Edit Modal */}
       {isEditModalOpen && currentItem && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-30 flex items-center justify-center">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsEditModalOpen(false);
+              setCurrentItem(null);
+            }
+          }}
+          className="fixed inset-0 bg-black bg-opacity-40 z-30 flex items-center justify-center"
+        >
           <div className="bg-white p-6 rounded-xl w-full max-w-md shadow-lg">
             <h2 className="text-xl font-bold mb-4">Edit Item</h2>
             <form
@@ -198,15 +269,17 @@ const Admin = () => {
               className="space-y-4"
             >
               <input
+                required
                 type="text"
                 value={currentItem.name}
                 onChange={(e) =>
                   setCurrentItem({ ...currentItem, name: e.target.value })
                 }
-                className="w-full border px-3 py-2 rounded"
+                className="w-full mb-4 p-3 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 bg-orange-50 text-orange-900"
                 placeholder="Name"
               />
               <input
+                required
                 type="number"
                 value={currentItem.price}
                 onChange={(e) =>
@@ -215,18 +288,27 @@ const Admin = () => {
                     price: e.target.value,
                   })
                 }
-                className="w-full border px-3 py-2 rounded"
+                className="w-full mb-4 p-3 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 bg-orange-50 text-orange-900"
                 placeholder="Price"
               />
-              <input
-                type="text"
+
+              <select
+                name="category"
                 value={currentItem.category}
                 onChange={(e) =>
                   setCurrentItem({ ...currentItem, category: e.target.value })
                 }
-                className="w-full border px-3 py-2 rounded"
-                placeholder="Category"
-              />
+                className="w-full mb-4 p-3 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 bg-orange-50 text-orange-900"
+                required
+              >
+                <option value="">Select Category</option>
+                <option value="starter">Starter</option>
+                <option value="main course">Main Course</option>
+                <option value="dessert">Dessert</option>
+                <option value="beverages">Beverages</option>
+                <option value="biryani">Biryani</option>
+                <option value="pizza">Pizza</option>
+              </select>
               <textarea
                 value={currentItem.description}
                 onChange={(e) =>
@@ -235,16 +317,14 @@ const Admin = () => {
                     description: e.target.value,
                   })
                 }
-                className="w-full border px-3 py-2 rounded"
+                className="w-full mb-4 p-3 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 bg-orange-50 text-orange-900"
                 placeholder="Description"
               ></textarea>
               <input
-                type="text"
-                value={currentItem.imageUrl}
-                onChange={(e) =>
-                  setCurrentItem({ ...currentItem, imageUrl: e.target.value })
-                }
-                className="w-full border px-3 py-2 rounded"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="w-full mb-4 p-3 border border-orange-400 rounded-lg focus:ring-2 focus:ring-orange-500 bg-orange-50 text-orange-900"
                 placeholder="Image URL"
               />
 
@@ -263,7 +343,7 @@ const Admin = () => {
                   type="submit"
                   className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
                 >
-                  Save
+                  {loading? "Saving..." : "Save Changes"}
                 </button>
               </div>
             </form>
