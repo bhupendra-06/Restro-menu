@@ -7,6 +7,7 @@ import {
 import fallbackImage from "../../assets/food-fallback.png";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as LogoutIcon } from "../../assets/logout.svg";
+import { useAuth } from "../../context/AuthContext";
 // import { ReactComponent as Plus } from "../../assets/plus.svg";
 
 const Admin = () => {
@@ -17,6 +18,7 @@ const Admin = () => {
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {logout} = useAuth();
 
   // const cloudinary = require('cloudinary').v2;
   // cloudinary.config({
@@ -172,7 +174,10 @@ const Admin = () => {
           Your Menu
         </h2>
 
-        <LogoutIcon className="w-8 h-8" />
+        <LogoutIcon 
+          onClick={logout}
+          className="w-8 h-8 cursor-pointer" 
+        />
       </nav>
 
       {/* Category Filter */}
