@@ -1,11 +1,13 @@
 // src/context/AuthContext.js
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [admin, setAdmin] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     // 🔍 Check if admin is logged in on first load
     useEffect(() => {
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }) => {
             credentials: "include",
         });
         setAdmin(null);
+        navigate("/admin-login");
         } catch (error) {
         console.error("Logout error:", error);
         }

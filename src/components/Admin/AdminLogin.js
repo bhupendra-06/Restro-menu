@@ -35,7 +35,7 @@ const AdminLogin = () => {
 
         if (response.ok) {
             setAdmin(data.admin); // 🔐 Update context
-            navigate('/post'); // Redirect to protected page
+            navigate('/admin'); // Redirect to protected page
         } else {
             setError(data.message || 'An error occurred, please try again.');
         }
