@@ -43,7 +43,7 @@ const PostForm = () => {
         }
       );
       const result = await res.json();
-      return result.secure_url;
+      return result.public_id;
     } catch (err) {
       console.error("Image upload failed", err);
       return null;

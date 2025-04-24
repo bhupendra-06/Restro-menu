@@ -78,11 +78,11 @@ const Admin = () => {
           }
         );
         const result = await res.json();
-        return result.secure_url;
+        return result.public_id;
       } catch (err) {
         console.error("Image upload failed", err);
         return null;
-      } finally{
+      } finally {
         setLoading(false);
       }
     }
@@ -90,9 +90,9 @@ const Admin = () => {
 
   const updateItem = async (item) => {
     const { _id, createdAt, updatedAt, __v, ...itemData } = item;
-    
+
     const uploadedUrl = await uploadImageToCloudinary();
-    if(uploadedUrl){
+    if (uploadedUrl) {
       itemData.imageUrl = uploadedUrl;
     }
 
@@ -220,7 +220,10 @@ const Admin = () => {
             </div>
 
             <img
-              src={item.imageUrl || fallbackImage}
+              src={
+                `https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload/v1745000365/${item.imageUrl}` ||
+                fallbackImage
+              }
               alt={item.name}
               onError={(e) => {
                 if (e.target.src !== fallbackImage)
@@ -241,6 +244,9 @@ const Admin = () => {
                 </p>
               )}
               <div className="flex justify-between items-center mt-2">
+                <span className="text-xs bg-yellow-300 text-black px-2 py-1 rounded-full capitalize">
+                  {item.category}
+                </span>
                 <span className="text-green-600 font-bold">₹{item.price}</span>
               </div>
             </div>
@@ -343,7 +349,7 @@ const Admin = () => {
                   type="submit"
                   className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
                 >
-                  {loading? "Saving..." : "Save Changes"}
+                  {loading ? "Saving..." : "Save Changes"}
                 </button>
               </div>
             </form>

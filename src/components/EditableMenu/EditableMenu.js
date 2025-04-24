@@ -86,24 +86,21 @@
 
 // export default EditableMenu;
 
-
-
-
-
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import fallbackImage from "../../assets/food-fallback.png"
+import fallbackImage from "../../assets/food-fallback.png";
 
 const EditableMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("starter");
   const [modalData, setModalData] = useState({ item: null, isSpecial: false });
-  const [showTodaySpecial, setShowTodaySpecial] = useState(true);
+  // const [showTodaySpecial, setShowTodaySpecial] = useState(true);
   const [showMenu, setShowMenu] = useState(false); // For handling intro and menu transition
-    
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/get-menu-items`)
+    fetch(
+      `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/get-menu-items`
+    )
       .then((response) => response.json())
       .then((data) => {
         setMenuItems(data);
@@ -133,12 +130,12 @@ const EditableMenu = () => {
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
       setModalData({ item: null, isSpecial: false });
-      setShowTodaySpecial(false);
+      // setShowTodaySpecial(false);
     }
   };
 
   const closeTodaySpecial = () => {
-    setShowTodaySpecial(false);
+    // setShowTodaySpecial(false);
     setModalData({ item: null, isSpecial: false });
   };
 
@@ -165,7 +162,10 @@ const EditableMenu = () => {
             <motion.p
               className="text-lg text-gray-300 mb-6 max-w-md"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { delay: 0.6, duration: 1.5 } }}
+              animate={{
+                opacity: 1,
+                transition: { delay: 0.6, duration: 1.5 },
+              }}
             >
               Indulge in our exquisite selection of gourmet dishes.
             </motion.p>
@@ -205,7 +205,10 @@ const EditableMenu = () => {
                   className="cursor-pointer rounded-xl overflow-hidden shadow-xl bg-gray-800 text-white flex items-center transform hover:scale-105 transition-transform duration-300 border border-gray-700"
                 >
                   <img
-                    src={item.imageUrl || fallbackImage}
+                    src={
+                      `https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload/v1745000365/${item.imageUrl}` ||
+                      fallbackImage
+                    }
                     alt={item.name}
                     onError={(e) => {
                       if (e.target.src !== fallbackImage)
@@ -214,15 +217,23 @@ const EditableMenu = () => {
                     className="w-28 h-28 object-cover m-3 rounded-lg"
                   />
                   <div className="p-3 flex-1">
-                    <h3 className="text-xl font-bold text-yellow-400">{item.name}</h3>
+                    <h3 className="text-xl font-bold text-yellow-400">
+                      {item.name}
+                    </h3>
                     {item.description && (
-                      <p className="text-sm text-gray-300 mt-1">{item.description.length > 45 ? item.description.slice(0, 47)+ "...": item.description}</p>
+                      <p className="text-sm text-gray-300 mt-1">
+                        {item.description.length > 45
+                          ? item.description.slice(0, 47) + "..."
+                          : item.description}
+                      </p>
                     )}
                     <div className="flex justify-between items-center mt-3">
                       <span className="text-xs bg-yellow-300 text-black px-2 py-1 rounded-full capitalize">
                         {item.category}
                       </span>
-                      <span className="text-green-400 font-bold">₹{item.price}</span>
+                      <span className="text-green-400 font-bold">
+                        ₹{item.price}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -250,7 +261,10 @@ const EditableMenu = () => {
               ⭐ Today’s Special
             </p>
             <img
-              src={modalData.item.imageUrl || fallbackImage}
+              src={
+                `https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload/v1745000365/${modalData.item.imageUrl}` ||
+                fallbackImage
+              }
               alt={modalData.item.name}
               onError={(e) => {
                 if (e.target.src !== fallbackImage)
@@ -284,7 +298,7 @@ const EditableMenu = () => {
         </div>
       )}
 
-      {/* Other Modal for Selected menuItems */}
+      {/* Modal for Selected menuItems */}
       {modalData.item && !modalData.isSpecial && (
         <div
           className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-20 p-4"
@@ -298,7 +312,7 @@ const EditableMenu = () => {
               &times;
             </button>
             <img
-              src={modalData.item.imageUrl || fallbackImage}
+              src={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload/v1745000365/${modalData.item.imageUrl}` || fallbackImage}
               alt={modalData.item.name}
               onError={(e) => {
                 if (e.target.src !== fallbackImage)
