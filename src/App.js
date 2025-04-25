@@ -41,7 +41,7 @@ function App() {
       />
       <Route
         path="/templates"
-        element={admin ? <Templates /> : <Navigate to="/admin-login" />}
+        element={<Templates/>}
       />
     </Routes>
   );

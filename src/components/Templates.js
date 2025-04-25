@@ -16,7 +16,7 @@ import Test from "./Test";
 const Templates = () => {
   return (
     <div>
-      <Test />
+      {/* <Test /> */}
       <Menu />
       <Menu1 />
       <Menu2 />
