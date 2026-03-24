@@ -12,6 +12,7 @@ import Admin from "./components/EditableMenu/Admin";
 import BusinessWebsite from "./components/contactCard/BusinessWebsite";
 import AdminLogin from "./components/Admin/AdminLogin";
 import Templates from "./components/Templates";
+import BrandingSettings from "./components/BrandingSettings";
 
 function App() {
   const { admin, loading } = useAuth();
@@ -38,6 +39,10 @@ function App() {
       <Route
         path="/admin"
         element={admin ? <Admin /> : <Navigate to="/admin-login" />}
+      />
+      <Route
+        path="/branding"
+        element={admin ? <BrandingSettings /> : <Navigate to="/admin-login" />}
       />
       <Route
         path="/templates"

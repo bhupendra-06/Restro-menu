@@ -17,12 +17,12 @@ const App = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1a1a1a] text-white relative">
+    <div className="min-h-screen w-96 flex items-center justify-center bg-[#1a1a1a] text-white relative">
       <AnimatePresence>
         {!showMenu ? (
           <motion.div
             key="intro"
-            className="absolute w-full h-full flex flex-col items-center justify-center text-center px-6 bg-black"
+            className="absolute w-96 h-full flex flex-col items-center justify-center text-center px-6 bg-black"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 1 } }}
@@ -47,6 +47,8 @@ const App = () => {
               animate={{ width: "96px", transition: { delay: 1.2, duration: 1 } }}
             />
           </motion.div>
+
+          
         ) : (
           <motion.div
             key="menu"
