@@ -8,6 +8,7 @@ import DietaryBadge from "./DietaryBadge";
 import Toast from "../Toast";
 import fallbackImage from "../../assets/food-fallback.png";
 
+
 const StarRating = ({ rating, reviews }) => {
   return (
     <div className="flex items-center gap-1">
