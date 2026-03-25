@@ -694,7 +694,7 @@ const EditableMenu = () => {
               </div>
 
               {/* Search Bar */}
-              <div className="px-4 py-3 border-b border-gray-700">
+              <div className="px-4 pb-3 border-b border-gray-700">
                 <input
                   type="text"
                   placeholder="🔍 Search dishes..."
@@ -769,7 +769,7 @@ const EditableMenu = () => {
               })}
 
             {/* All Items Grid */}
-            <div className="px-4 py-8">
+            <div className="p-4">
               {activeCategory !== "All" && (
                 <h2 className="text-2xl font-bold text-yellow-400 mb-4 capitalize">
                   {activeCategory}
