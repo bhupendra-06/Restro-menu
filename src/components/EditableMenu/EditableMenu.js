@@ -88,26 +88,6 @@ const ListViewCard = ({ item, onClick, onAddToCart, branding }) => {
         </div>
       </div>
 
-      {/* Add to Cart Button */}
-      {/* <motion.button
-        whileHover={{ 
-          scale: 1.08,
-          boxShadow: `0 0 25px ${brandingData.primaryColor}80`
-        }}
-        whileTap={{ scale: 0.95 }}
-        onClick={(e) => {
-          e.stopPropagation();
-          onAddToCart(item);
-        }}
-        className="px-4 py-3 mx-3 font-bold rounded-lg text-black text-sm whitespace-nowrap transition-all duration-300 shadow-lg flex-shrink-0 flex items-center gap-2"
-        style={{ 
-          backgroundColor: brandingData.primaryColor,
-          boxShadow: `0 0 15px ${brandingData.primaryColor}40`
-        }}
-      >
-        <span className="text-lg">🛒</span>
-        <span>Add</span>
-      </motion.button> */}
     </motion.div>
   );
 };

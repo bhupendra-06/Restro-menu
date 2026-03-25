@@ -153,20 +153,6 @@ const BrandingSettings = () => {
               <span className="text-xs font-semibold">List View</span>
               <p className="text-xs text-gray-400 mt-1">Traditional</p>
             </button>
-
-            {/* Compact View */}
-            <button
-              onClick={() => setFormData((prev) => ({ ...prev, menuLayout: "compact" }))}
-              className={`p-3 rounded-lg border-2 transition text-center ${
-                formData.menuLayout === "compact"
-                  ? "border-yellow-500 bg-yellow-500/10"
-                  : "border-gray-600 hover:border-gray-500"
-              }`}
-            >
-              <div className="text-2xl mb-1">✨</div>
-              <span className="text-xs font-semibold">Compact</span>
-              <p className="text-xs text-gray-400 mt-1">Minimal</p>
-            </button>
           </div>
         </div>
 
