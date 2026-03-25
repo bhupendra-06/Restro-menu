@@ -8,13 +8,17 @@ import DietaryBadge from "./DietaryBadge";
 import Toast from "../Toast";
 import fallbackImage from "../../assets/food-fallback.png";
 
-
 const StarRating = ({ rating, reviews }) => {
   return (
     <div className="flex items-center gap-1">
       <div className="flex gap-0.5">
         {[...Array(5)].map((_, i) => (
-          <span key={i} className={i < Math.floor(rating) ? "text-yellow-400" : "text-gray-500"}>
+          <span
+            key={i}
+            className={
+              i < Math.floor(rating) ? "text-yellow-400" : "text-gray-500"
+            }
+          >
             ★
           </span>
         ))}
@@ -28,10 +32,10 @@ const StarRating = ({ rating, reviews }) => {
 const ListViewCard = ({ item, onClick, onAddToCart, branding }) => {
   const { branding: contextBranding } = useBranding();
   const brandingData = branding || contextBranding;
-  
+
   const getImageUrl = () => {
     let url = item.imageUrl || item.image;
-    
+
     if (!url) {
       return fallbackImage;
     }
@@ -53,8 +57,8 @@ const ListViewCard = ({ item, onClick, onAddToCart, branding }) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      whileHover={{ 
-        boxShadow: `0 8px 16px rgba(0,0,0,0.3)`
+      whileHover={{
+        boxShadow: `0 8px 16px rgba(0,0,0,0.3)`,
       }}
       className="cursor-pointer flex items-center rounded-xl overflow-hidden shadow-md bg-gradient-to-r from-gray-800 to-gray-700 text-white transform transition-all duration-300 border border-gray-700 hover:border-yellow-500 mb-3 group"
       onClick={onClick}
@@ -72,7 +76,10 @@ const ListViewCard = ({ item, onClick, onAddToCart, branding }) => {
 
       {/* Content */}
       <div className="p-3 flex-1">
-        <h3 className="text-base font-bold mb-1 line-clamp-1" style={{ color: brandingData.primaryColor }}>
+        <h3
+          className="text-base font-bold mb-1 line-clamp-1"
+          style={{ color: brandingData.primaryColor }}
+        >
           {item.name}
         </h3>
         {item.description && (
@@ -81,13 +88,20 @@ const ListViewCard = ({ item, onClick, onAddToCart, branding }) => {
           </p>
         )}
         <div className="flex justify-between items-center gap-2">
-          <span className="text-xs px-2 py-1 rounded-full font-semibold" style={{ backgroundColor: brandingData.accentColor, color: "#000" }}>
+          <span
+            className="text-xs px-2 py-1 rounded-full font-semibold"
+            style={{ backgroundColor: brandingData.accentColor, color: "#000" }}
+          >
             {item.category}
           </span>
-          <span className="font-bold text-lg" style={{ color: brandingData.secondaryColor }}>₹{item.price}</span>
+          <span
+            className="font-bold text-lg"
+            style={{ color: brandingData.secondaryColor }}
+          >
+            ₹{item.price}
+          </span>
         </div>
       </div>
-
     </motion.div>
   );
 };
@@ -102,7 +116,7 @@ const MenuItemCard = ({ item, onClick, onAddToCart }) => {
   // Handle image URL - support multiple formats
   const getImageUrl = () => {
     let url = item.imageUrl || item.image;
-    
+
     if (!url) {
       console.warn(`No image URL for item: ${item.name}`);
       return fallbackImage;
@@ -141,13 +155,15 @@ const MenuItemCard = ({ item, onClick, onAddToCart }) => {
           }}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
-        
+
         {/* Badges Overlay */}
         <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
           {isBestseller && <DietaryBadge type="bestseller" />}
           {isTrending && <DietaryBadge type="trending" />}
           {isNew && <DietaryBadge type="new" />}
-          {item.dietary && item.dietary[0] && <DietaryBadge type={item.dietary[0]} />}
+          {item.dietary && item.dietary[0] && (
+            <DietaryBadge type={item.dietary[0]} />
+          )}
         </div>
 
         {/* Price Badge */}
@@ -172,13 +188,19 @@ const MenuItemCard = ({ item, onClick, onAddToCart }) => {
       <div className="p-4">
         {/* Title & Rating */}
         <div className="mb-2">
-          <h3 className="text-lg font-bold text-yellow-400 line-clamp-2">{item.name}</h3>
-          {item.rating && <StarRating rating={item.rating} reviews={item.reviews} />}
+          <h3 className="text-lg font-bold text-yellow-400 line-clamp-2">
+            {item.name}
+          </h3>
+          {item.rating && (
+            <StarRating rating={item.rating} reviews={item.reviews} />
+          )}
         </div>
 
         {/* Description */}
         {item.description && (
-          <p className="text-sm text-gray-300 line-clamp-2 mb-3">{item.description}</p>
+          <p className="text-sm text-gray-300 line-clamp-2 mb-3">
+            {item.description}
+          </p>
         )}
 
         {/* Info Badges */}
@@ -244,7 +266,7 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
   // Handle image URL - support multiple formats (same as MenuItemCard)
   const getImageUrl = () => {
     let url = item.imageUrl || item.image;
-    
+
     if (!url) {
       console.warn(`No image URL for item: ${item.name}`);
       return fallbackImage;
@@ -299,7 +321,7 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
             }}
             className="w-full h-full object-cover"
           />
-          
+
           {/* Tags on Image */}
           <div className="absolute top-4 left-4 flex flex-wrap gap-2">
             {item.tags?.includes("bestseller") && (
@@ -322,7 +344,9 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
         {/* Content */}
         <div className="p-6 md:p-8">
           {/* Title & Rating */}
-          <h2 className="text-3xl font-bold text-yellow-400 mb-2">{item.name}</h2>
+          <h2 className="text-3xl font-bold text-yellow-400 mb-2">
+            {item.name}
+          </h2>
           {item.rating && (
             <div className="mb-4">
               <StarRating rating={item.rating} reviews={item.reviews} />
@@ -331,13 +355,17 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
 
           {/* Description */}
           {item.description && (
-            <p className="text-gray-300 mb-4 leading-relaxed">{item.description}</p>
+            <p className="text-gray-300 mb-4 leading-relaxed">
+              {item.description}
+            </p>
           )}
 
           {/* Chef's Note */}
           {chefNote && (
             <div className="bg-gradient-to-r from-yellow-900 to-orange-900 p-4 rounded-lg mb-4 border-l-4 border-yellow-500">
-              <p className="text-yellow-200 text-sm font-semibold">👨‍🍳 Chef's Note</p>
+              <p className="text-yellow-200 text-sm font-semibold">
+                👨‍🍳 Chef's Note
+              </p>
               <p className="text-yellow-100 text-sm mt-1">{chefNote}</p>
             </div>
           )}
@@ -345,7 +373,9 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
           {/* Suggested Pairing */}
           {suggestedPairing && (
             <div className="bg-gradient-to-r from-purple-900 to-pink-900 p-4 rounded-lg mb-4 border-l-4 border-purple-500">
-              <p className="text-purple-200 text-sm font-semibold">🍷 Suggested Pairing</p>
+              <p className="text-purple-200 text-sm font-semibold">
+                🍷 Suggested Pairing
+              </p>
               <p className="text-purple-100 text-sm mt-1">{suggestedPairing}</p>
             </div>
           )}
@@ -355,7 +385,9 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
             {item.prepTime && (
               <div className="bg-gray-700 p-3 rounded-lg text-center">
                 <p className="text-gray-400 text-sm">Prep Time</p>
-                <p className="text-yellow-400 font-bold text-lg">⏱️ {item.prepTime}</p>
+                <p className="text-yellow-400 font-bold text-lg">
+                  ⏱️ {item.prepTime}
+                </p>
               </div>
             )}
             {item.portion && (
@@ -367,7 +399,9 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
             {item.calories && (
               <div className="bg-gray-700 p-3 rounded-lg text-center">
                 <p className="text-gray-400 text-sm">Calories</p>
-                <p className="text-yellow-400 font-bold text-lg">🔥 {item.calories}</p>
+                <p className="text-yellow-400 font-bold text-lg">
+                  🔥 {item.calories}
+                </p>
               </div>
             )}
             {item.spiciness !== undefined && (
@@ -383,10 +417,15 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
           {/* Ingredients */}
           {ingredients.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-yellow-400 mb-2">🥘 Key Ingredients</h3>
+              <h3 className="text-lg font-bold text-yellow-400 mb-2">
+                🥘 Key Ingredients
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {ingredients.map((ing, i) => (
-                  <span key={i} className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
+                  <span
+                    key={i}
+                    className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm"
+                  >
                     {ing}
                   </span>
                 ))}
@@ -397,7 +436,9 @@ const RichMenuModal = ({ item, onClose, onAddToCart }) => {
           {/* Allergen Warnings */}
           {dietary.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-yellow-400 mb-2">⚠️ Allergen Information</h3>
+              <h3 className="text-lg font-bold text-yellow-400 mb-2">
+                ⚠️ Allergen Information
+              </h3>
               <div className="flex flex-wrap gap-2">
                 {dietary.map((tag, i) => (
                   <DietaryBadge key={i} type={tag} size="lg" />
@@ -459,8 +500,11 @@ const EditableMenu = () => {
   useEffect(() => {
     const apiUrl = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/hotel1/get-menu-items`;
     console.log("🔍 Fetching from API:", apiUrl);
-    console.log("🖼️  Cloudinary cloud:", process.env.REACT_APP_CLOUDINARY_CLOUD_NAME);
-    
+    console.log(
+      "🖼️  Cloudinary cloud:",
+      process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+    );
+
     fetch(apiUrl)
       .then((response) => {
         console.log("✅ Response status:", response.status);
@@ -472,24 +516,27 @@ const EditableMenu = () => {
       .then((data) => {
         console.log("📊 Data received from API:", data);
         console.log("📦 Number of items:", data.length);
-        
+
         // Log first item details for debugging images
         if (data.length > 0) {
           console.log("🖼️  First item details:", {
             name: data[0].name,
             imageUrl: data[0].imageUrl,
             image: data[0].image,
-            allKeys: Object.keys(data[0])
+            allKeys: Object.keys(data[0]),
           });
-          
+
           // Log all image URLs for quick reference
-          console.log("📷 All image URLs:", data.map(item => ({
-            name: item.name,
-            imageUrl: item.imageUrl || item.image,
-            isHttpUrl: (item.imageUrl || item.image || "").startsWith("http")
-          })));
+          console.log(
+            "📷 All image URLs:",
+            data.map((item) => ({
+              name: item.name,
+              imageUrl: item.imageUrl || item.image,
+              isHttpUrl: (item.imageUrl || item.image || "").startsWith("http"),
+            })),
+          );
         }
-        
+
         setMenuItems(data);
       })
       .catch((error) => {
@@ -545,9 +592,21 @@ const EditableMenu = () => {
   };
 
   const smartSections = [
-    { id: "trending", label: "🔥 Trending", filter: (item) => item.tags?.includes("trending") },
-    { id: "bestseller", label: "⭐ Bestsellers", filter: (item) => item.tags?.includes("bestseller") },
-    { id: "vegetarian", label: "🌱 Vegetarian", filter: (item) => item.dietary?.includes("vegetarian") },
+    {
+      id: "trending",
+      label: "🔥 Trending",
+      filter: (item) => item.tags?.includes("trending"),
+    },
+    {
+      id: "bestseller",
+      label: "⭐ Bestsellers",
+      filter: (item) => item.tags?.includes("bestseller"),
+    },
+    {
+      id: "vegetarian",
+      label: "🌱 Vegetarian",
+      filter: (item) => item.dietary?.includes("vegetarian"),
+    },
   ];
 
   // All available dietary filters
@@ -558,21 +617,25 @@ const EditableMenu = () => {
     setSelectedDietaryFilters((prev) =>
       prev.includes(filter)
         ? prev.filter((f) => f !== filter)
-        : [...prev, filter]
+        : [...prev, filter],
     );
   };
 
   // Filter items based on search, category, and dietary preferences
   const filteredItems = menuItems.filter((item) => {
     // Filter by category
-    if (activeCategory !== "All" && item.category !== activeCategory) return false;
+    if (activeCategory !== "All" && item.category !== activeCategory)
+      return false;
 
     // Filter by search term
     if (searchTerm.trim() !== "") {
       const searchLower = searchTerm.toLowerCase();
       const matchesName = item.name.toLowerCase().includes(searchLower);
-      const matchesDescription = item.description && item.description.toLowerCase().includes(searchLower);
-      const matchesCategory = item.category && item.category.toLowerCase().includes(searchLower);
+      const matchesDescription =
+        item.description &&
+        item.description.toLowerCase().includes(searchLower);
+      const matchesCategory =
+        item.category && item.category.toLowerCase().includes(searchLower);
       if (!matchesName && !matchesDescription && !matchesCategory) return false;
     }
 
@@ -580,7 +643,7 @@ const EditableMenu = () => {
     if (selectedDietaryFilters.length > 0) {
       const itemDietary = item.dietary || [];
       const hasSelectedDietary = selectedDietaryFilters.some((filter) =>
-        itemDietary.includes(filter)
+        itemDietary.includes(filter),
       );
       if (!hasSelectedDietary) return false;
     }
@@ -634,14 +697,14 @@ const EditableMenu = () => {
             <div className="sticky top-0 bg-gray-900/95 backdrop-blur border-b border-gray-700 z-40">
               <div className="flex justify-between items-center px-4 py-4">
                 <div className="flex-1 text-center">
-                  <h1 
+                  <h1
                     className="text-2xl md:text-4xl font-extrabold tracking-wide"
                     style={{ color: branding.primaryColor }}
                   >
                     {branding.headline || "🍽️ Discover Our Flavours"}
                   </h1>
                 </div>
-                
+
                 {/* 3-Dot Menu Button */}
                 <div className="relative ml-4">
                   <button
@@ -655,21 +718,19 @@ const EditableMenu = () => {
                   {/* Dropdown Menu */}
                   {showDropdown && (
                     <div className="absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
-                      {admin && (
-                        <>
-                          <button
-                            onClick={() => {
-                              navigate("/branding");
-                              setShowDropdown(false);
-                            }}
-                            className="w-full px-4 py-3 text-left text-white hover:bg-purple-600 transition flex items-center gap-3 text-sm font-semibold"
-                          >
-                            <span className="text-lg">🌈</span>
-                            <span>Customize Colors</span>
-                          </button>
-                          <div className="border-t border-gray-700"></div>
-                        </>
-                      )}
+                      <>
+                        <button
+                          onClick={() => {
+                            navigate("/branding");
+                            setShowDropdown(false);
+                          }}
+                          className="w-full px-4 py-3 text-left text-white hover:bg-purple-600 transition flex items-center gap-3 text-sm font-semibold"
+                        >
+                          <span className="text-lg">🌈</span>
+                          <span>Customize Colors</span>
+                        </button>
+                        <div className="border-t border-gray-700"></div>
+                      </>
                       <button
                         onClick={() => {
                           navigate(admin ? "/admin" : "/admin-login");
@@ -678,7 +739,7 @@ const EditableMenu = () => {
                         className="w-full px-4 py-3 text-left text-white hover:bg-red-600 transition flex items-center gap-3 text-sm font-semibold"
                       >
                         <span className="text-lg">⚙️</span>
-                        <span>{admin ? "Admin Panel" : "Admin Login"}</span>
+                        <span>{"Admin Panel"}</span>
                       </button>
                     </div>
                   )}
@@ -715,7 +776,11 @@ const EditableMenu = () => {
                         ? "bg-yellow-500 text-black border-yellow-500 shadow-lg"
                         : "bg-gray-700 text-white border-gray-600 hover:hover:text-black"
                     }`}
-                    style={activeCategory === category ? { backgroundColor: branding.primaryColor } : {}}
+                    style={
+                      activeCategory === category
+                        ? { backgroundColor: branding.primaryColor }
+                        : {}
+                    }
                   >
                     {category}
                   </button>
@@ -759,10 +824,16 @@ const EditableMenu = () => {
                     <h2 className="text-2xl font-bold text-yellow-400 mb-4">
                       {section.label}
                     </h2>
-                    <div className={branding.menuLayout === "list" ? "space-y-3" : getGridClassName()}>
-                      {sectionItems.slice(0, 4).map((item) =>
-                        renderMenuItem(item)
-                      )}
+                    <div
+                      className={
+                        branding.menuLayout === "list"
+                          ? "space-y-3"
+                          : getGridClassName()
+                      }
+                    >
+                      {sectionItems
+                        .slice(0, 4)
+                        .map((item) => renderMenuItem(item))}
                     </div>
                   </div>
                 );
@@ -775,10 +846,14 @@ const EditableMenu = () => {
                   {activeCategory}
                 </h2>
               )}
-              <div className={branding.menuLayout === "list" ? "space-y-3" : getGridClassName()}>
-                {filteredItems.map((item) =>
-                  renderMenuItem(item)
-                )}
+              <div
+                className={
+                  branding.menuLayout === "list"
+                    ? "space-y-3"
+                    : getGridClassName()
+                }
+              >
+                {filteredItems.map((item) => renderMenuItem(item))}
               </div>
             </div>
           </div>
@@ -788,7 +863,11 @@ const EditableMenu = () => {
       {/* Rich Modal */}
       <AnimatePresence>
         {selectedItem && (
-          <RichMenuModal item={selectedItem} onClose={() => setSelectedItem(null)} onAddToCart={handleAddToCart} />
+          <RichMenuModal
+            item={selectedItem}
+            onClose={() => setSelectedItem(null)}
+            onAddToCart={handleAddToCart}
+          />
         )}
       </AnimatePresence>
 

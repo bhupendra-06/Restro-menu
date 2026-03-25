@@ -40,9 +40,13 @@ function App() {
         path="/admin"
         element={admin ? <Admin /> : <Navigate to="/admin-login" />}
       />
-      <Route
+      {/* <Route
         path="/branding"
         element={admin ? <BrandingSettings /> : <Navigate to="/admin-login" />}
+      /> */}
+      <Route
+        path="/branding"
+        element={<BrandingSettings />}
       />
       <Route
         path="/templates"
